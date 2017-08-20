@@ -1,17 +1,13 @@
-import os
-
 from numpy import random as nprand
 from cassandra.cluster import Cluster
 
 from gen import *
 
+import driver
+
 
 CLUSTER = Cluster()
 SESSION = CLUSTER.connect('galaxy_0')
-
-def execute_cqlsh(query):
-    if query != "":
-        os.system("cqlsh -e \"%s\"" % query)
 
 def check_record_exist(obj_type, keyspace_name, poz, coor_upper_bound):
 
