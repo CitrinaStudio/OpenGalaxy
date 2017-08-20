@@ -90,8 +90,8 @@ def gen_stars(count, coor_upper_bound):
         poz = driver.check_record_exist(
             'stars', 'galaxy_0', poz, coor_upper_bound)
 
-        queris_pool += "INSERT INTO galaxy_0.stars (id, color, luminosity, name, radius, temp, weight, x, y, z) VALUES ('%s', '%s', %f, '%s', %f, %f, %f, %f, %f, %f); " % (
-            id, star_color, star_luminosity, star_name, star_radius, star_temp, star_weight, poz[0], poz[1], poz[2])
+        queris_pool += "INSERT INTO galaxy_0.space (id, color, type, luminosity, name, radius, temp, weight, x, y, z) VALUES ('%s', '%s', '%s', %f, '%s', %f, %f, %f, %f, %f, %f); " % (
+            id, star_color, "star", star_luminosity, star_name, star_radius, star_temp, star_weight, poz[0], poz[1], poz[2])
 
         queris_in_pool += 1
 
@@ -110,7 +110,7 @@ def gen_planets(count, coor_upper_bound):
     for i in range(0, count, 1):
         planet_name = gen_name(random.randint(1, 5))
         planet_weight = random.uniform(0.0002, 317.8)
-        planet_diameter = random.uniform(0.0592, 11.209)
+        planet_radius = random.uniform(0.0592, 11.209) / 2
 
         x_pcoor = random.uniform(-coor_upper_bound, coor_upper_bound)
         y_pcoor = random.uniform(-coor_upper_bound, coor_upper_bound)
@@ -123,8 +123,8 @@ def gen_planets(count, coor_upper_bound):
 
         id = gen_crc32_hash(poz)
 
-        queris_pool += "INSERT INTO galaxy_0.planets (id, name, diameter, weight, x, y, z) VALUES ('%s', '%s', %s, %s, %s, %s, %s); " % (
-            id, planet_name, planet_diameter, planet_weight, poz[0], poz[1], poz[2])
+        queris_pool += "INSERT INTO galaxy_0.space (id, name, type, radius, weight, x, y, z) VALUES ('%s', '%s', '%s', %s, %s, %s, %s, %s); " % (
+            id, planet_name, "planet", planet_radius, planet_weight, poz[0], poz[1], poz[2])
 
         queris_in_pool += 1
 
@@ -153,8 +153,8 @@ def gen_comets(count, coor_upper_bound):
             'comets', 'galaxy_0', poz, coor_upper_bound)
 
         id = gen_crc32_hash(poz)
-        queris_pool += "INSERT INTO galaxy_0.comets (id, name, weight, x, y, z) VALUES ('%s', '%s', %s, %s, %s, %s); " % (
-            id, comet_name, comet_weight, poz[0], poz[1], poz[2])
+        queris_pool += "INSERT INTO galaxy_0.space (id, name, type, weight, x, y, z) VALUES ('%s', '%s', '%s', %s, %s, %s, %s); " % (
+            id, comet_name, "comet", comet_weight, poz[0], poz[1], poz[2])
 
         queris_in_pool += 1
 
