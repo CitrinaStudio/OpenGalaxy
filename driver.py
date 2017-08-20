@@ -3,7 +3,7 @@ import os
 from numpy import random as nprand
 from cassandra.cluster import Cluster
 
-from gen import *
+import gen
 
 
 CLUSTER = Cluster()
@@ -15,7 +15,7 @@ def execute_cqlsh(query):
 
 def check_record_exist(obj_type, keyspace_name, poz, coor_upper_bound):
 
-    query = int(list(list(SESSION.execute("""SELECT count(*) FROM %s.%s WHERE id='%s';""" % (keyspace_name, obj_type, gen_crc32_hash(poz)) )) [0]) [0])
+    query = int(list(list(SESSION.execute("""SELECT count(*) FROM %s.%s WHERE id='%s';""" % (keyspace_name, obj_type, gen.gen_crc32_hash(poz)) )) [0]) [0])
 
     if query == 1:
 
@@ -32,7 +32,7 @@ def check_record_exist(obj_type, keyspace_name, poz, coor_upper_bound):
 
 
 
-            query = int(list(list(SESSION.execute("""SELECT count(*) FROM %s.%s WHERE id='%s';""" % (keyspace_name, obj_type, gen_crc32_hash(poz)) )) [0]) [0])
+            query = int(list(list(SESSION.execute("""SELECT count(*) FROM %s.%s WHERE id='%s';""" % (keyspace_name, obj_type, gen.gen_crc32_hash(poz)) )) [0]) [0])
 
             if query == 0:
                 tumbler = 1
