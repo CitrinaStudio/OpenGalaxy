@@ -37,11 +37,11 @@ def gen_stars(count, coor_upper_bound):
         star_name = gen_name(random.randint(5, 9))
         star_temp = random.uniform(2000, 60000)
 
-        x_coor = random.uniform(-coor_upper_bound, coor_upper_bound)
-        y_coor = random.uniform(-coor_upper_bound, coor_upper_bound)
-        z_coor = random.uniform(-coor_upper_bound, coor_upper_bound)
+        x = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
+        y = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
+        z = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
 
-        poz = (x_coor, y_coor, z_coor)
+        poz = (x, y, z)
 
         id = gen_crc32_hash(poz)
 
@@ -87,20 +87,20 @@ def gen_stars(count, coor_upper_bound):
             star_radius = random.uniform(15, 20)
             star_luminosity = random.uniform(1400000, 2500000)
 
-        poz = driver.check_record_exist_sqlite(
-            'stars', poz, coor_upper_bound)
+        poz = driver.check_record_exist(
+            "galaxy_0", poz, coor_upper_bound)
 
-        queris_pool += "INSERT INTO stars (id, color, luminosity, name, radius, temp, weight, x, y, z) VALUES ('%s', '%s', %f, '%s', %f, %f, %f, %f, %f, %f); " % (
-            id, star_color, star_luminosity, star_name, star_radius, star_temp, star_weight, poz[0], poz[1], poz[2])
+        queris_pool += "INSERT INTO galaxy_0.space (id, color, type, luminosity, name, radius, temp, weight, x, y, z) VALUES ('%s', '%s', '%s', %f, '%s', %f, %f, %f, %f, %f, %f); " % (
+            id, star_color, "star", star_luminosity, star_name, star_radius, star_temp, star_weight, poz[0], poz[1], poz[2])
 
         queris_in_pool += 1
 
-        if queris_in_pool >= 10:
+        if queris_in_pool >= 500:
             queris_in_pool = 0
-            driver.execute_sqlite(queris_pool)
+            driver.execute_cqlsh(queris_pool)
             queris_pool = ""
 
-    driver.execute_sqlite(queris_pool)
+    driver.execute_cqlsh(queris_pool)
 
 def gen_planets(count, coor_upper_bound):
     queris_pool = ""
@@ -111,28 +111,28 @@ def gen_planets(count, coor_upper_bound):
         planet_weight = random.uniform(0.0002, 317.8)
         planet_radius = random.uniform(0.0592, 11.209) / 2
 
-        x_pcoor = random.uniform(-coor_upper_bound, coor_upper_bound)
-        y_pcoor = random.uniform(-coor_upper_bound, coor_upper_bound)
-        z_pcoor = random.uniform(-coor_upper_bound, coor_upper_bound)
+        x = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
+        y = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
+        z = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
 
-        poz = (x_pcoor, y_pcoor, z_pcoor)
+        poz = (x, y, z)
 
-        poz = driver.check_record_exist_sqlite(
-            'planets', poz, coor_upper_bound)
+        poz = driver.check_record_exist(
+            "galaxy_0", poz, coor_upper_bound)
 
         id = gen_crc32_hash(poz)
 
-        queris_pool += "INSERT INTO planets (id, name, radius, weight, x, y, z) VALUES ('%s', '%s', %s, %s, %s, %s, %s); " % (
-            id, planet_name, planet_radius, planet_weight, poz[0], poz[1], poz[2])
+        queris_pool += "INSERT INTO galaxy_0.space (id, name, type, radius, weight, x, y, z) VALUES ('%s', '%s', '%s', %s, %s, %s, %s, %s); " % (
+            id, planet_name, "planet", planet_radius, planet_weight, poz[0], poz[1], poz[2])
 
         queris_in_pool += 1
 
-        if queris_in_pool >= 10:
+        if queris_in_pool >= 500:
             queris_in_pool = 0
-            driver.execute_sqlite(queris_pool)
+            driver.execute_cqlsh(queris_pool)
             queris_pool = ""
 
-    driver.execute_sqlite(queris_pool)
+    driver.execute_cqlsh(queris_pool)
 
 
 def gen_comets(count, coor_upper_bound):
@@ -143,23 +143,24 @@ def gen_comets(count, coor_upper_bound):
         comet_name = gen_name(random.randint(3, 6))
         comet_weight = random.uniform(2200000000000, 220000000000000)
 
-        x_ccoor = random.uniform(-coor_upper_bound, coor_upper_bound)
-        y_ccoor = random.uniform(-coor_upper_bound, coor_upper_bound)
-        z_ccoor = random.uniform(-coor_upper_bound, coor_upper_bound)
+        x = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
+        y = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
+        z = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
 
-        poz = (x_ccoor, y_ccoor, z_ccoor)
-        poz = poz = driver.check_record_exist_sqlite(
-            'comets', poz, coor_upper_bound)
+        poz = (x, y, z)
+
+        poz = poz = driver.check_record_exist(
+            "galaxy_0", poz, coor_upper_bound)
 
         id = gen_crc32_hash(poz)
-        queris_pool += "INSERT INTO comets (id, name, weight, x, y, z) VALUES ('%s', '%s', %s, %s, %s, %s); " % (
-            id, comet_name, comet_weight, poz[0], poz[1], poz[2])
+        queris_pool += "INSERT INTO galaxy_0.space (id, name, type, weight, x, y, z) VALUES ('%s', '%s', '%s', %s, %s, %s, %s); " % (
+            id, comet_name, "comet", comet_weight, poz[0], poz[1], poz[2])
 
         queris_in_pool += 1
 
-        if queris_in_pool >= 10:
+        if queris_in_pool >= 500:
             queris_in_pool = 0
-            driver.execute_sqlite(queris_pool)
+            driver.execute_cqlsh(queris_pool)
             queris_pool = ""
 
-    driver.execute_sqlite(queris_pool)
+    driver.execute_cqlsh(queris_pool)

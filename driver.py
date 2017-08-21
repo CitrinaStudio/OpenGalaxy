@@ -22,9 +22,9 @@ def execute_sqlite(query):
     if query != "":
         os.system("sqlite3 ./space.db \"%s\"" %  query)
 
-def check_record_exist(obj_type, keyspace_name, poz, coor_upper_bound):
+def check_record_exist(keyspace_name, poz, coor_upper_bound):
 
-    query = int(list(list(SESSION.execute("""SELECT count(*) FROM %s.%s WHERE id='%s';""" % (keyspace_name, obj_type, gen.gen_crc32_hash(poz)) )) [0]) [0])
+    query = int(list(list(SESSION.execute("""SELECT count(*) FROM %s.space WHERE id='%s';""" % (keyspace_name, gen.gen_crc32_hash(poz)) )) [0]) [0])
 
     if query == 1:
 
@@ -41,7 +41,7 @@ def check_record_exist(obj_type, keyspace_name, poz, coor_upper_bound):
 
 
 
-            query = int(list(list(SESSION.execute("""SELECT count(*) FROM %s.%s WHERE id='%s';""" % (keyspace_name, obj_type, gen.gen_crc32_hash(poz)) )) [0]) [0])
+            query = int(list(list(SESSION.execute("""SELECT count(*) FROM %s.space WHERE id='%s';""" % (keyspace_name, gen.gen_crc32_hash(poz)) )) [0]) [0])
 
             if query == 0:
                 tumbler = 1
