@@ -34,9 +34,9 @@ def check_record_exist(keyspace_name, poz, coor_upper_bound):
         while tumbler == 0:
             print("/|\\")
 
-            x = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
-            y = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
-            z = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
+            x = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+            y = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+            z = nprand.uniform(-coor_upper_bound, coor_upper_bound)
             poz = (x, y, z)
 
 
@@ -61,9 +61,9 @@ def check_record_exist_sqlite(obj_type, poz, coor_upper_bound):
         while tumbler == 0:
             print("/|\\")
 
-            x = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
-            y = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
-            z = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
+            x = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+            y = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+            z = nprand.uniform(-coor_upper_bound, coor_upper_bound)
             poz = (x, y, z)
 
 

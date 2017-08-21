@@ -37,9 +37,9 @@ def gen_stars(count, coor_upper_bound):
         star_name = gen_name(random.randint(5, 9))
         star_temp = random.uniform(2000, 60000)
 
-        x = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
-        y = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
-        z = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
+        x = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+        y = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+        z = nprand.uniform(-coor_upper_bound, coor_upper_bound)
 
         poz = (x, y, z)
 
@@ -111,9 +111,9 @@ def gen_planets(count, coor_upper_bound):
         planet_weight = random.uniform(0.0002, 317.8)
         planet_radius = random.uniform(0.0592, 11.209) / 2
 
-        x = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
-        y = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
-        z = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
+        x = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+        y = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+        z = nprand.uniform(-coor_upper_bound, coor_upper_bound)
 
         poz = (x, y, z)
 
@@ -143,9 +143,9 @@ def gen_comets(count, coor_upper_bound):
         comet_name = gen_name(random.randint(3, 6))
         comet_weight = random.uniform(2200000000000, 220000000000000)
 
-        x = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
-        y = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
-        z = round(nprand.uniform(-coor_upper_bound, coor_upper_bound), 2)
+        x = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+        y = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+        z = nprand.uniform(-coor_upper_bound, coor_upper_bound)
 
         poz = (x, y, z)
 
