@@ -163,4 +163,34 @@ def gen_comets(count, coor_upper_bound):
             driver.execute_cqlsh(queris_pool)
             queris_pool = ""
 
+def gen_meteorites(count, coor_upper_bound):
+    queris_pool = ""
+    queris_in_pool = 0
+
+    for i in range(0, count, 1):
+        meteorite_name = gen_name(random.randint(3,5))
+        meteorite_weight = random.uniform(1, 60)
+        comp = ('stone', 'iron', 'Iron-stone')
+        meteorite_compositions = nprand.choice(comp)
+
+        x = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+        y = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+        z = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+
+        poz = (x, y, z)
+        poz = poz = driver.check_record_exist(
+            "galaxy_0", poz, coor_upper_bound)
+
+        id = gen_crc32_hash(poz)
+        queris_pool += "INSERT INTO galaxy_0.space (id, name, type, compositions, weight, x, y, z) VALUES ('%s', '%s', '%s', '%s', %s, %s, %s, %s); " % (
+            id, meteorite_name, "meteorite", meteorite_compositions, meteorite_weight, poz[0], poz[1], poz[2])
+
+        queris_in_pool += 1
+
+        if queris_in_pool >= 500:
+            queris_in_pool = 0
+            driver.execute_cqlsh(queris_pool)
+            queris_pool = ""
+
+
     driver.execute_cqlsh(queris_pool)
