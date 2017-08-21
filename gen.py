@@ -95,7 +95,7 @@ def gen_stars(count, coor_upper_bound):
 
         queris_in_pool += 1
 
-        if queris_in_pool >= 500:
+        if queris_in_pool >= 1000:
             queris_in_pool = 0
             driver.execute_cqlsh(queris_pool)
             queris_pool = ""
@@ -127,7 +127,7 @@ def gen_planets(count, coor_upper_bound):
 
         queris_in_pool += 1
 
-        if queris_in_pool >= 500:
+        if queris_in_pool >= 1000:
             queris_in_pool = 0
             driver.execute_cqlsh(queris_pool)
             queris_pool = ""
@@ -158,7 +158,7 @@ def gen_comets(count, coor_upper_bound):
 
         queris_in_pool += 1
 
-        if queris_in_pool >= 500:
+        if queris_in_pool >= 1000:
             queris_in_pool = 0
             driver.execute_cqlsh(queris_pool)
             queris_pool = ""
