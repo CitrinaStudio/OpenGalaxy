@@ -6,4 +6,16 @@
 
 
 #include <cstdio>
-#include <>
+#include <string>
+#include "driver.h"
+#include "cassandra/include/cassandra.h"
+
+int main() {
+
+    char* name;
+    name = "dima";
+
+    execute_cql(name);
+    
+    return 0;
+}
