@@ -102,6 +102,7 @@ def gen_stars(count, coor_upper_bound):
 
     driver.execute_cqlsh(queris_pool)
 
+
 def gen_planets(count, coor_upper_bound):
     queris_pool = ""
     queris_in_pool = 0
@@ -163,12 +164,13 @@ def gen_comets(count, coor_upper_bound):
             driver.execute_cqlsh(queris_pool)
             queris_pool = ""
 
+
 def gen_meteorites(count, coor_upper_bound):
     queris_pool = ""
     queris_in_pool = 0
 
     for i in range(0, count, 1):
-        meteorite_name = gen_name(random.randint(3,5))
+        meteorite_name = gen_name(random.randint(3, 5))
         meteorite_weight = random.uniform(1, 60)
         comp = ('stone', 'iron', 'Iron-stone')
         meteorite_compositions = nprand.choice(comp)
@@ -192,19 +194,19 @@ def gen_meteorites(count, coor_upper_bound):
             driver.execute_cqlsh(queris_pool)
             queris_pool = ""
 
-
     driver.execute_cqlsh(queris_pool)
 
-def gen_blackhole(count, coor_upper_bound)
+
+def gen_blackhole(count, coor_upper_bound):
     queris_pool = ""
     queris_in_pool = 0
 
-    for i in range(0, count , 1):
-        blackhole_name = n_name(random.randint(5,7))
+    for i in range(0, count, 1):
+        blackhole_name = n_name(random.randint(5, 7))
         blackhole_weight = random.randint(10, 100000000)
         charge = ('With charge', 'Without charge')
         blackhole_charge = nprand.choice(charge)
-        blackhole_radius = 2*6.67408*blackhole_weight/300000**2
+        blackhole_radius = 2 * 6.67408 * blackhole_weight / 300000**2
 
         x = nprand.uniform(-coor_upper_bound, coor_upper_bound)
         y = nprand.uniform(-coor_upper_bound, coor_upper_bound)
@@ -212,7 +214,7 @@ def gen_blackhole(count, coor_upper_bound)
 
         poz = (x, y, z)
         poz = poz = driver.check_record_exist(
-            "galaxy_0", poz, coor_upper_bound) 
+            "galaxy_0", poz, coor_upper_bound)
 
         id = gen_crc32_hash(poz)
         queris_pool += "INSERT INTO galaxy_0.space (id, name, type, compositions, weight, x, y, z) VALUES ('%s', '%s', '%s', '%s', %s, %s, %s, %s); " % (
@@ -224,5 +226,5 @@ def gen_blackhole(count, coor_upper_bound)
             queris_in_pool = 0
             driver.execute_cqlsh(queris_pool)
             queris_pool = ""
-    
+
     driver.execute_cqlsh(queris_pool)
