@@ -8,7 +8,7 @@ def main():
     if type == "planets":
         gen.gen_planets(int(sys.argv[2]), float(sys.argv[3]))
 
-    elif type == "comets":
+    elif type == "comets":       
         gen.gen_comets(int(sys.argv[2]), float(sys.argv[3]))
     
     elif type == "stars":
@@ -24,7 +24,7 @@ def main():
         gen.gen_nebula(int(sys.argv[2]), float(sys.argv[3]))  
 
     elif type == "satellite":
-            gen.gen_satellite(int(sys.argv[2]), float(sys.argv[3]))     
+        gen.gen_satellite(int(sys.argv[2]), float(sys.argv[3]))     
     
     elif type == "all":
         gen.gen_stars(int(sys.argv[2]), float(sys.argv[3]))

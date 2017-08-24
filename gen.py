@@ -257,7 +257,7 @@ def gen_nebula(count, coor_upper_bound):
 
     driver.execute_cqlsh(queris_pool)
 
-def gen_satellite():
+def gen_satellite(count, coor_upper_bound):
     queris_pool = ""
     queris_in_pool = 0
 
