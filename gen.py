@@ -142,7 +142,7 @@ def gen_comets(count, coor_upper_bound):
 
     for i in range(0, count, 1):
         comet_name = gen_name(random.randint(3, 6))
-        comet_weight = random.uniform(2200000000000, 220000000000000)
+        comet_weight = random.uniform(1, 20)
 
         x = nprand.uniform(-coor_upper_bound, coor_upper_bound)
         y = nprand.uniform(-coor_upper_bound, coor_upper_bound)
@@ -164,6 +164,7 @@ def gen_comets(count, coor_upper_bound):
             driver.execute_cqlsh(queris_pool)
             queris_pool = ""
 
+    driver.execute_cqlsh(queris_pool)
 
 def gen_meteorites(count, coor_upper_bound):
     queris_pool = ""
@@ -271,6 +272,9 @@ def gen_satellite(count, coor_upper_bound):
         z = nprand.uniform(-coor_upper_bound, coor_upper_bound)
 
         poz = (x, y, z)
+
+        poz = poz = driver.check_record_exist(
+            "galaxy_0", poz, coor_upper_bound)
 
         id = gen_crc32_hash(poz)
 
