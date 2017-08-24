@@ -226,6 +226,8 @@ def gen_blackhole(count, coor_upper_bound):
             queris_in_pool = 0
             driver.execute_cqlsh(queris_pool)
             queris_pool = ""
+
+
 def gen_nebula(count, coor_upper_bound):
     queris_pool = ""
     queris_in_pool = 0
@@ -233,7 +235,7 @@ def gen_nebula(count, coor_upper_bound):
     for i in range(1):
         n_type = ('Dark nebula', 'Reflective nebula', 'Ionized by radiation')
         nebula_type = nprand.choice(n_type)
-        nebula_name =  gen_name(random.randint(5,6))
+        nebula_name = gen_name(random.randint(5,6))
 
         x = nprand.uniform(-coor_upper_bound, coor_upper_bound)
         y = nprand.uniform(-coor_upper_bound, coor_upper_bound)
@@ -245,6 +247,35 @@ def gen_nebula(count, coor_upper_bound):
 
         queris_pool +="INSERT INTO galaxy_0.space (id, name, type, subtype, x, y, z) VALUES ('%s', '%s', '%s', '%s', %s, %s, %s); " % (
             id, nebula_name, "nebula", nebula_type,  poz[0], poz[1], poz[2])
+
+        queris_in_pool += 1
+
+        if queris_in_pool >= 500:
+            queris_in_pool = 0
+            driver.execute_cqlsh(queris_pool)
+            queris_pool = ""
+
+    driver.execute_cqlsh(queris_pool)
+
+def gen_satellite():
+    queris_pool = ""
+    queris_in_pool = 0
+
+    for i in range(0, count, 1):
+        sat_name = gen_name(random.randint(6, 7))
+        s_type = ('Artificial', 'Natural')
+        sat_type = nprand.choice(s_type)
+
+        x = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+        y = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+        z = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+
+        poz = (x, y, z)
+
+        id = gen_crc32_hash(poz)
+
+        queris_pool +="INSERT INTO galaxy_0.space (id, name, type, subtype, x, y, z) VALUES ('%s', '%s', '%s', '%s', %s, %s, %s); " % (
+            id, sat_name, "satellite", sat_type,  poz[0], poz[1], poz[2])
 
         queris_in_pool += 1
 
