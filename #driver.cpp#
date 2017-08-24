@@ -9,10 +9,8 @@
 #include <string>
 #include "driver.h"
 
-int execute_cql(char *params) {
-    char *name;
-
-    sprintf(name, "Name: %s !!!", params);
+int execute_cql(char params[100]) {
+    system("clear");
 
     return 0;
 }

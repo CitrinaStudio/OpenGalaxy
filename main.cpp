@@ -12,10 +12,8 @@
 
 int main() {
 
-    char* name;
-    name = "dima";
+    execute_cql("sdfdf");
 
-    execute_cql(name);
     
     return 0;
 }
