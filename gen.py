@@ -202,7 +202,7 @@ def gen_blackhole(count, coor_upper_bound):
     queris_in_pool = 0
 
     for i in range(0, count, 1):
-        blackhole_name = n_name(random.randint(5, 7))
+        blackhole_name = gen_name(random.randint(5, 7))
         blackhole_weight = random.randint(10, 100000000)
         charge = ('With charge', 'Without charge')
         blackhole_charge = nprand.choice(charge)
@@ -217,8 +217,34 @@ def gen_blackhole(count, coor_upper_bound):
             "galaxy_0", poz, coor_upper_bound)
 
         id = gen_crc32_hash(poz)
-        queris_pool += "INSERT INTO galaxy_0.space (id, name, type, compositions, weight, x, y, z) VALUES ('%s', '%s', '%s', '%s', %s, %s, %s, %s); " % (
+        queris_pool += "INSERT INTO galaxy_0.space (id, name, type, charge, compositions, weight, x, y, z) VALUES ('%s', '%s', '%s', '%s', '%s', %s, %s, %s, %s); " % (
             id, blackhole_name, "blackhole", blackhole_charge, blackhole_radius, blackhole_weight, poz[0], poz[1], poz[2])
+
+        queris_in_pool += 1
+
+        if queris_in_pool >= 500:
+            queris_in_pool = 0
+            driver.execute_cqlsh(queris_pool)
+            queris_pool = ""
+def gen_nebula(count, coor_upper_bound):
+    queris_pool = ""
+    queris_in_pool = 0
+
+    for i in range(1):
+        n_type = ('Dark nebula', 'Reflective nebula', 'Ionized by radiation')
+        nebula_type = nprand.choice(n_type)
+        nebula_name =  gen_name(random.randint(5,6))
+
+        x = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+        y = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+        z = nprand.uniform(-coor_upper_bound, coor_upper_bound)
+
+        poz = (x, y, z)
+
+        id = gen_crc32_hash(poz)
+
+        queris_pool +="INSERT INTO galaxy_0.space (id, name, type, subtype, x, y, z) VALUES ('%s', '%s', '%s', '%s', %s, %s, %s); " % (
+            id, nebula_name, "nebula", nebula_type,  poz[0], poz[1], poz[2])
 
         queris_in_pool += 1
 
